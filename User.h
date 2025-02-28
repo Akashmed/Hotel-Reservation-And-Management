@@ -5,29 +5,64 @@
 #include <string>
 using namespace std;
 
-class User {
+class User
+{
 protected:
     string name;
     string username;
     string password;
-public:
-    User(string uname, string pass, string n = "") 
-        : username(uname), password(pass), name(n) {}
+    int count = 2;
 
+public:
     virtual void displayInfo() = 0;
-    
+
     string getUsername() { return username; }
-    bool authenticate(string uname, string pass) {
-        return (username == uname && password == pass);
-    }
+
+    bool authenticate();
 };
 
-class Guest : public User {
-public:
-    Guest(string uname, string pass, string n)
-        : User(uname, pass, n) {}
+bool User::authenticate()
+{
+    string inputUsername, inputPassword;
+    cout << "Enter your username: ";
+    cin >> inputUsername;
+    cout << "Enter your password: ";
+    cin >> inputPassword;
+    
+    if (inputUsername == username && inputPassword == password)
+    {
+        cout << "Login successful!" << endl;
+        return true;
+    }
+    else if (count > 0)
+    {
+        cout << "Invalid username or password. Please try again." << endl;
+        count--;
+        authenticate();
+    }
+    else
+    {
+        cout << "You have exceeded the maximum number of attempts. Please try again later." << endl;
+        return false;
+    }
+}
 
-    void displayInfo() override {
+class Guest : public User
+{
+public:
+    void createAccount()
+    {
+        cout << "Enter your name: ";
+        cin >> name;
+        cout << "Enter a username: ";
+        cin >> username;
+        cout << "Enter a password: ";
+        cin >> password;
+        cout << "Account created successfully!" << endl;
+    }
+
+    void displayInfo() override
+    {
         cout << "Guest Name: " << name << "\nUsername: " << username << endl;
     }
 };
