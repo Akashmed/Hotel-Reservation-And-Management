@@ -18,7 +18,25 @@ public:
 
     string getUsername() { return username; }
 
+    void createAccount()
+    {
+        cout << "Enter your name: ";
+        cin >> name;
+        cout << "Enter a username: ";
+        cin >> username;
+        cout << "Enter a password: ";
+        cin >> password;
+        cout << "Account created successfully!" << endl;
+    }
+
     bool authenticate();
+    bool isAdmin()
+    {
+        if (username == "admin" && password == "admin")
+        {
+            return true;
+        }
+    }
 };
 
 bool User::authenticate()
@@ -28,7 +46,7 @@ bool User::authenticate()
     cin >> inputUsername;
     cout << "Enter your password: ";
     cin >> inputPassword;
-    
+
     if (inputUsername == username && inputPassword == password)
     {
         cout << "Login successful!" << endl;
@@ -36,7 +54,7 @@ bool User::authenticate()
     }
     else if (count > 0)
     {
-        cout << "Invalid username or password. Please try again." << endl;
+        cout << "Invalid username or password. Please try again. " << count << " attempt left" << endl;
         count--;
         authenticate();
     }
@@ -50,17 +68,6 @@ bool User::authenticate()
 class Guest : public User
 {
 public:
-    void createAccount()
-    {
-        cout << "Enter your name: ";
-        cin >> name;
-        cout << "Enter a username: ";
-        cin >> username;
-        cout << "Enter a password: ";
-        cin >> password;
-        cout << "Account created successfully!" << endl;
-    }
-
     void displayInfo() override
     {
         cout << "Guest Name: " << name << "\nUsername: " << username << endl;
