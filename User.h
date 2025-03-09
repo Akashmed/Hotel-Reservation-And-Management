@@ -49,7 +49,7 @@ bool User::authenticate()
 
     if (inputUsername == username && inputPassword == password)
     {
-        cout << "Login successful!" << endl;
+        cout << "-------------Login successful!--------------" << endl;
         return true;
     }
     else if (count > 0)

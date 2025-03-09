@@ -31,6 +31,12 @@ public:
     }
 
     void markPaid() { isPaid = true; }
+
+    void displayBooking() {
+        cout << "Booking ID: " << bookingID << " - " << guestName 
+                  << " - Room " << room->getRoomNumber() 
+                  << (isPaid ? " - Paid" : " - Pending") << endl;
+    }
 };
 
 #endif
