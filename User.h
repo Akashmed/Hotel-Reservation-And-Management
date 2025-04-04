@@ -2,16 +2,17 @@
 #define USER_H
 
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
 class User
 {
 protected:
-    string name;
     string username;
     string password;
     int count = 2;
+    bool loggedIn;
 
 public:
     virtual void displayInfo() = 0;
@@ -21,18 +22,33 @@ public:
     void createAccount()
     {
         cout << "Enter your name: ";
-        cin >> name;
-        cout << "Enter a username: ";
         cin >> username;
         cout << "Enter a password: ";
         cin >> password;
-        cout << "Account created successfully!" << endl;
+
+        ofstream file("users.txt", ios::app); // append mode
+        if (file.is_open())
+        {
+            file << username << " " << password << endl;
+            file.close();
+            cout << "Account created successfully!" << endl;
+            loggedIn = true;
+        }
+        else
+        {
+            cout << "Error opening file!" << endl;
+        }
     }
 
     bool authenticate();
     bool isAdmin()
     {
-        if (username == "admin" && password == "admin")
+        string adminName, adminPass;
+        cout << "Enter admin username: ";
+        cin >> adminName;
+        cout << "Enter admin password: ";
+        cin >> password;
+        if (adminName == "admin" && adminPass == "admin")
         {
             return true;
         }
@@ -47,21 +63,52 @@ bool User::authenticate()
     cout << "Enter your password: ";
     cin >> inputPassword;
 
-    if (inputUsername == username && inputPassword == password)
+    ifstream file("users.txt");
+    string fileUsername, filePassword;
+
+    if (file.is_open())
     {
-        cout << "-------------Login successful!--------------" << endl;
-        return true;
-    }
-    else if (count > 0)
-    {
-        cout << "Invalid username or password. Please try again. " << count << " attempt left" << endl;
-        count--;
-        authenticate();
+        while (file >> fileUsername >> filePassword)
+        {
+            if (fileUsername == inputUsername && filePassword == inputPassword)
+            {
+                cout << "-------------Login successful!--------------" << endl;
+                loggedIn = true;
+                cout << "Welcome, " << fileUsername << "!" << endl;
+                file.close();
+                return true;
+            }
+        }
+        file.close();
     }
     else
     {
-        cout << "You have exceeded the maximum number of attempts. Please try again later." << endl;
+        cout << "Error opening file!" << endl;
         return false;
+    }
+
+    // Retry logic
+    if (count > 1)
+    {
+        count--;
+        cout << "Invalid username or password. Please try again. " << count << " attempts left." << endl;
+        return authenticate(); // recursive retry
+    }
+    else
+    {
+        cout << "You have exceeded the maximum number of attempts. Want to create an account? (y/n)" << endl;
+        char choice;
+        cin >> choice;
+        if (choice == 'y' || choice == 'Y')
+        {
+            createAccount();
+            return true;
+        }
+        else
+        {
+            cout << "Exiting..." << endl;
+            return false;
+        }
     }
 }
 
@@ -70,8 +117,13 @@ class Guest : public User
 public:
     void displayInfo() override
     {
-        cout << "Guest Name: " << name << "\nUsername: " << username << endl;
+        cout << "Guest Name: " << username << endl;
     }
+
+    bool getLoggedIn()
+    {
+        return loggedIn;
+    };
 };
 
 #endif
