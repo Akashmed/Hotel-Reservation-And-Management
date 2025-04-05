@@ -25,6 +25,7 @@ public:
     void freeRoom() { isAvailable = true; }
 
     int getRoomNumber() { return roomNumber; }
+    double getPrice() { return price; }
 };
 
 #endif

@@ -18,7 +18,7 @@ public:
     void confirmBooking() {
         if (room->checkAvailability()) {
             room->bookRoom();
-            cout << "Booking confirmed for " << guestName 
+            cout << "Success ! Booking confirmed for " << guestName 
                       << " in Room " << room->getRoomNumber() << endl;
         } else {
             cout << "Room is not available!" << endl;
@@ -37,6 +37,8 @@ public:
                   << " - Room " << room->getRoomNumber() 
                   << (isPaid ? " - Paid" : " - Pending") << endl;
     }
+
+    string getGuestName() { return guestName; }
 };
 
 #endif
