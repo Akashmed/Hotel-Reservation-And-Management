@@ -37,6 +37,8 @@ public:
                   << " - Room " << room->getRoomNumber() 
                   << (isPaid ? " - Paid" : " - Pending") << endl;
     }
+
+    string getGuestName() { return guestName; }
 };
 
 #endif

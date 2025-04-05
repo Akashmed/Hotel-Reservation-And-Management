@@ -91,7 +91,7 @@ bool User::authenticate()
     if (count > 1)
     {
         count--;
-        cout << "Invalid username or password. Please try again. " << count << " attempts left." << endl;
+        cout << "Invalid username or password. Please try again. " << count << " attempt's left." << endl;
         return authenticate(); // recursive retry
     }
     else
