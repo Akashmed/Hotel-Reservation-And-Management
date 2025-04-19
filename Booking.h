@@ -39,6 +39,10 @@ public:
     }
 
     string getGuestName() { return guestName; }
+    int getBookingID() { return bookingID; }
+    Room* getRoom() { return room; }
+    bool isPaidStatus() { return isPaid; }
+
 };
 
 #endif

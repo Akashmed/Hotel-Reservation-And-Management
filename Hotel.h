@@ -94,6 +94,36 @@ public:
         }
     }
 
+    void cancelBooking()
+    {
+        if (guest.getLoggedIn() == false)
+        {
+            cout << "Oops, you're not logged in! Please login to continue" << endl;
+            guest.authenticate();
+        }
+        int bookingID;
+        cout << "\n Cancel Booking:\n";
+        cout << "------------------------\n";
+        cout << "Enter booking ID to cancel: ";
+        cin >> bookingID;
+
+        for (auto booking = bookings.begin(); booking != bookings.end(); ++booking)
+        {
+            if (booking->getBookingID() == bookingID)
+            {
+                booking->cancelBooking();
+                bookings.erase(booking);
+                cout << "Booking canceled for " << guestName << endl;
+                if (booking->isPaidStatus())
+                {
+                    cout << booking->getRoom()->getPrice() << " Refund initiated for booking ID: " << bookingID << endl;
+                }
+                return;
+            }
+        }
+        cout << "Booking not found!\n";
+    }
+
     void bookRoom()
     {
 
@@ -177,8 +207,10 @@ public:
                 if (booking.getGuestName() == guestName)
                 {
                     booking.displayBooking();
+                    return ;
                 }
             }
+            cout << "No bookings found for " << guestName << endl;
         }
     }
 };

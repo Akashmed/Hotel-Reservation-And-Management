@@ -61,7 +61,6 @@ int adminPanel()
             myHotel.showAvailableRooms();
             break;
         case 6:
-            cout << "\n All Bookings:\n";
             myHotel.showAllBookings();
             break;
         case 7:
@@ -92,7 +91,8 @@ int UserPanel()
         cout << "2. View Available Rooms\n";
         cout << "3. Book a Room\n";
         cout << "4. View My Bookings\n";
-        cout << "5. Exit\n";
+        cout << "5. Cancel Booking\n";
+        cout << "6. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -112,9 +112,12 @@ int UserPanel()
             myHotel.showBookingByGuestName();
             break;
         case 5:
+            myHotel.cancelBooking();
+            break;
+        case 6:
             cout << " Exiting... Thank you!\n";
             break;
-        case 7:
+        case 9:
             cout << "Please verify to access admin panel\n";
             if (guest.isAdmin())
             {
@@ -126,12 +129,11 @@ int UserPanel()
                 cout << "Access denied! You are not an admin.\n";
                 break;
             }
-
             break;
         default:
             cout << " Invalid choice! Please enter a valid option.\n";
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     return 0;
 }
