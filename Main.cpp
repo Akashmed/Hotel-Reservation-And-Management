@@ -93,6 +93,8 @@ int UserPanel()
         cout << "4. View My Bookings\n";
         cout << "5. Cancel Booking\n";
         cout << "6. Exit\n";
+        cout<< "7. Create an account\n";
+        cout << "8. Login\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -116,6 +118,12 @@ int UserPanel()
             break;
         case 6:
             cout << " Exiting... Thank you!\n";
+            break;
+        case 7:
+            myHotel.createAccount();
+            break;
+        case 8:
+            myHotel.authenticate();
             break;
         case 9:
             cout << "Please verify to access admin panel\n";

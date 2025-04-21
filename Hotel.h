@@ -187,6 +187,17 @@ public:
         }
     }
 
+    void createAccount()
+    {
+        cout << "Creating an account...\n";
+        guest.createAccount();
+    }
+    void authenticate()
+    {
+        cout << "Logging in...\n";
+        guest.authenticate();
+    }
+
     void showBookingByGuestName()
     {
         if (guest.getLoggedIn() == false)
