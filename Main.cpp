@@ -92,9 +92,9 @@ int UserPanel()
         cout << "3. Book a Room\n";
         cout << "4. View My Bookings\n";
         cout << "5. Cancel Booking\n";
-        cout << "6. Exit\n";
-        cout<< "7. Create an account\n";
-        cout << "8. Login\n";
+        cout << "6. Create an account\n";
+        cout << "7. Login\n";
+        cout << "8. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -117,13 +117,13 @@ int UserPanel()
             myHotel.cancelBooking();
             break;
         case 6:
-            cout << " Exiting... Thank you!\n";
-            break;
-        case 7:
             myHotel.createAccount();
             break;
-        case 8:
+        case 7:
             myHotel.authenticate();
+            break;
+        case 8:
+            cout << " Exiting... Thank you!\n";
             break;
         case 9:
             cout << "Please verify to access admin panel\n";
@@ -141,7 +141,7 @@ int UserPanel()
         default:
             cout << " Invalid choice! Please enter a valid option.\n";
         }
-    } while (choice != 6);
+    } while (choice != 8);
 
     return 0;
 }

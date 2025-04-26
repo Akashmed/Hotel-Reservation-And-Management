@@ -27,7 +27,7 @@ public:
 
     void cancelBooking() {
         room->freeRoom();
-        cout << "Booking canceled for " << guestName << endl;
+        // cout << "Booking canceled for " << guestName << endl;
     }
 
     void markPaid() { isPaid = true; }
